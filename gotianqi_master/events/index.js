@@ -39,10 +39,10 @@ module.exports = function(io) {
         });
 
 
-        socket.on('user:connected', function (userId, callback) {
-            socketService.set(userId, socket);
+        socket.on('user:connected', function (user, callback) {
+            socketService.set(user._id, socket);
 
-            var user = membershipRoute.getUser(userId);
+           // var user = membershipRoute.getUser(user._id);
 
             var reply = JSON.stringify({
                 action: 'control',
