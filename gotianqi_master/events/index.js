@@ -3,6 +3,7 @@
 var socketService = require('../shared/socket-service');
 var sessionService = require('../shared/session-service');
 var membershipRoute = require('../routes/membership');
+var messagesRouter = require('../routes/messages');
 
 var redis = require('redis');
 var sub = redis.createClient();
@@ -24,6 +25,9 @@ module.exports = function(io) {
                 msg: msg.msg
             });
             console.dir(reply);
+            
+            messagesRouter.addMessage(msg);
+            
             pub.publish('chat', reply);
         });
 

@@ -27,3 +27,8 @@ router.post('/addMessage', function(req, res) {
 });
 
 module.exports = router;
+
+module.exports.addMessage = function(req, res) {
+	var url = config.DB_SERVER + '/messages' + req.url;
+	request.post({url: url, form: req.body}).pipe(res);
+};
