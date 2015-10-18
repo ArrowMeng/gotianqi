@@ -26,9 +26,7 @@ module.exports = function(io) {
             });
             console.dir(reply);
             
-            messagesRouter.addMessage(msg);
-            
-            //pub.publish('chat', reply);
+            pub.publish('chat', reply);
         });
 
 
