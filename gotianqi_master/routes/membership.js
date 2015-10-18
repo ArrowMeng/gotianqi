@@ -18,15 +18,17 @@ var self = module.exports = {
     },
     register: function (req, res) {
         var userId = req.body.userId;
+        var userName = req.body.userName;
+        var pic = req.body.pic;
 
         if (users[userId]) {
             res.send({ membershipResolved: false, error: "User already exists" });
             return;
         }
 
-        users[userId] = { userId: userId };
+        users[userId] = {userId: userId, userName: userName, pic: pic};
         req.session.userId = userId;
-        res.send({ membershipResolved: true, user: users[userId] });
+        res.send({ membershipResolved: true, userId: users[userId] });
     },
     unregister: function (userId) {
         delete users[userId];
