@@ -2,7 +2,8 @@ module.exports = {
   serverPort: 5000,
   sessionCookieKey: "connect.sid",
   sessionSecret: "SESIORsecret",
-  allowedCORSOrigins: "http://127.0.0.1:8000",
+  allowedCORSOriginsFromGateway: "http://localhost:8000",
+  allowedCORSOriginsFromMaster: "http://localhost:5000",
 
   TOKEN_SECRET: process.env.TOKEN_SECRET || 'Ua3hEIiagTjjDahmnwa8fDkn',
   MONGO_URI: process.env.MONGO_URI || 'mongodb://localhost/gotianqi_db1',
