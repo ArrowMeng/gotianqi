@@ -23,7 +23,7 @@ router.get('/', renderHomePage);
  */
 router.post('/user', function (req, res) {
     req.session.user = req.body.user;//set username to session
-   	renderHomePage(req, res);
+    renderHomePage(req, res);
 });
 
 router.get('/logout', function(req, res) {
@@ -34,7 +34,7 @@ router.get('/logout', function(req, res) {
 
 // MEMBERSHIP
 router.get("/verify-session", membershipRoute.verifySession);
-router.post("/register", membershipRoute.register)
+router.post("/register", membershipRoute.register);
 router.post("/unregister", membershipRoute.unregister);
 
 

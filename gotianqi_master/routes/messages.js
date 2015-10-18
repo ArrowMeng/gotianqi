@@ -2,7 +2,13 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 
+var membershipRoute = require('./membership');
 var config = require('../config');
+
+//MEMBERSHIP
+router.get("/verify-session", membershipRoute.verifySession);
+router.post("/register", membershipRoute.register);
+router.post("/unregister", membershipRoute.unregister);
 
 /*
  * GET message list.
