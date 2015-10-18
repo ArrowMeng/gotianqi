@@ -4,6 +4,7 @@ module.exports = {
   sessionSecret: "SESIORsecret",
   allowedCORSOriginsFromGateway: "http://localhost:8000",
   allowedCORSOriginsFromMaster: "http://localhost:5000",
+  allowedCORSOriginsFromClient: "http://localhost:8080",
 
   TOKEN_SECRET: process.env.TOKEN_SECRET || 'Ua3hEIiagTjjDahmnwa8fDkn',
   MONGO_URI: process.env.MONGO_URI || 'mongodb://localhost/gotianqi_db1',
