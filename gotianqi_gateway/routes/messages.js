@@ -4,6 +4,16 @@ var router = express.Router();
 
 var config = require('../config');
 
+router.post("/register", function(req, res) {
+  var url = config.MASTER_SERVER + req.url;
+  request.post({url: url, form: req.body}).pipe(res);
+});
+
+router.post("/unregister", function(req, res) {
+  var url = config.MASTER_SERVER + req.url;
+  request.post({url: url, form: req.body}).pipe(res);
+});
+
 /*
  * GET message list.
  */
