@@ -60,7 +60,7 @@ function createJWT(user) {
 /*
  * GET notelist.
  */
-router.post('/login', function(req, res) {
+router.post('/signin', function(req, res) {
   var User = mongoose.model('User', userSchema);
   User.findOne({ email: req.body.email }, {}, function(err, user) {
     if (!user) {

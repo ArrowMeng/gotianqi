@@ -28,13 +28,8 @@ var self = module.exports = {
         req.session.userName = userName;
         res.send({ membershipResolved: true, user: users[userName] });
     },
-    unregister: function (req, res) {
-        var userName = req.body.userName;
+    unregister: function (userName) {
         delete users[userName];
-
-        var allUser = self.getAllUsers();
-
-        res.send({ unregistered: true, user: allUser });
     },
     getUser: function (userName) {
         return users[userName];

@@ -8,7 +8,7 @@ var config = require('../config');
 /*
  * GET notelist.
  */
-router.post('/login', function(req, res) {
+router.post('/signin', function(req, res) {
   var url = config.DB_SERVER + '/auth' + req.url;
   request.post({url: url, form: req.body}).pipe(res);
 });
