@@ -153,7 +153,7 @@ $(document).ready(function() {
             };
             message._id = new Date().getTime(); // :~)
             message.date = new Date();
-            message.username = 'me';
+            message.userName = 'me';
             message.userId =  '534b8e5aaa5e7afc1b23e69b';
             message.pic = 'http://ionicframework.com/img/docs/venkman.jpg';
 

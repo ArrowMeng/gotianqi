@@ -3,33 +3,33 @@ var sessionService = require('../shared/session-service');
 var membershipRoute = require('../routes/membership');
 
 module.exports = function (socket) {
-    socket.on("user:connected", function (userName, callback) {
-        socketService.set(userName, socket);
+    socket.on("user:connected", function (userId, callback) {
+        socketService.set(userId, socket);
 
-        var user = membershipRoute.getUser(userName);
+        var user = membershipRoute.getUser(userId);
         socket.broadcast.emit("user:joined", user);
 
         var users = membershipRoute.getAllUsers();
         callback(null, users);
     });
 
-    socket.on("user:rename", function (userName, callback) {
-        sessionService.getUserName(socket.request, function (err, oldUserName) {
-            sessionService.setSessionProperty(socket.request.session, "userName", userName, function (err, data) {
+    socket.on("user:rename", function (userId, callback) {
+        sessionService.getUserId(socket.request, function (err, oldUserId) {
+            sessionService.setSessionProperty(socket.request.session, "userId", userId, function (err, data) {
                 if (err) {
                     callback(err);
                     return;
                 }
 
-                sessionService.getUserName(socket.request, function (err, newUserName) {
+                sessionService.getUserId(socket.request, function (err, newUserId) {
                     if (err) {
                         callback(err);
                         return;
                     }
 
-                    membershipRoute.renameUser(oldUserName, newUserName);
-                    var user = membershipRoute.getUser(newUserName);
-                    var data = { oldUserName: oldUserName, user: user };
+                    membershipRoute.renameUser(oldUserId, newUserId);
+                    var user = membershipRoute.getUser(newUserId);
+                    var data = { oldUserId: oldUserId, user: user };
 
                     socket.broadcast.emit("user:renamed", data);
                     callback(null, data);
@@ -39,11 +39,11 @@ module.exports = function (socket) {
     });
 
     socket.on("disconnect", function () {
-        sessionService.getUserName(socket.request, function (err, currentUserName) {
+        sessionService.getUserId(socket.request, function (err, currentUserId) {
             if (!err) {
-                socket.broadcast.emit("user:left", currentUserName);
-                membershipRoute.unregister(currentUserName);
-                socketService.remove(currentUserName);
+                socket.broadcast.emit("user:left", currentUserId);
+                membershipRoute.unregister(currentUserId);
+                socketService.remove(currentUserId);
             }
             else
                 console.log(err);

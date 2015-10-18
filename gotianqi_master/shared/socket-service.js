@@ -1,13 +1,13 @@
 var sockets = {};
 
 module.exports = {
-    get: function (userName) {
-        return sockets[userName];
+    get: function (userId) {
+        return sockets[userId];
     },
-    set: function (userName, socket) {
-        sockets[userName] = socket;
+    set: function (userId, socket) {
+        sockets[userId] = socket;
     },
-    remove: function (userName) {
-        delete sockets[userName];
+    remove: function (userId) {
+        delete sockets[userId];
     }
 };

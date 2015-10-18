@@ -27,11 +27,11 @@ var self = module.exports = {
                 callback(null, session);
         });
     },
-    getUserName: function (handshake, callback) {
+    getUserId: function (handshake, callback) {
         self.get(handshake, function (err, session) {
             if (err) callback(err);
             if (session)
-                callback(null, session.userName);
+                callback(null, session.userId);
             else
                 callback(null);
         });
