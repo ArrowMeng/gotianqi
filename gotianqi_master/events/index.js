@@ -28,7 +28,7 @@ module.exports = function(io) {
             
             messagesRouter.addMessage(msg);
             
-            pub.publish('chat', reply);
+            //pub.publish('chat', reply);
         });
 
 
