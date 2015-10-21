@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var redis = require('redis');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var CookieParser = require('cookie-parser');
@@ -11,6 +10,8 @@ var bodyParser = require('body-parser');
 var ExpressSession = require('express-session');
 var connectRedis = require('connect-redis');
 var RedisStore = connectRedis(ExpressSession);
+//var RedisStore = require('connect-redis')(require('express-session'))
+var redis = require('redis');
 var rClient = redis.createClient();
 var sessionStore = new RedisStore({client: rClient});
 
