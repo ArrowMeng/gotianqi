@@ -4,15 +4,13 @@ var server = seaport.createServer();
 server.listen(config.seaport);
 
 var bouncy = require('bouncy');
-bouncy(function (req, bounce) {
+bouncy(function (req, res, bounce) {
     var domains = (req.headers.host || '').split('.');
     var service = 'gotianqi@' + ({
         unstable : '0.1.x',
         stable : '0.0.x'
     }[domains[0]] || '0.0.x');
-
-    var res = bounce.respond();
-    
+   
     res.header("Access-Control-Allow-Origin", config.allowedCORSOrigins);
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
     res.header("Access-Control-Allow-Headers", "Content-Type");
