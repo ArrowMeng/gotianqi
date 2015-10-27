@@ -18,6 +18,9 @@ bouncy(function (req, res, bounce) {
     }
     else {
         console.log(ps.length);
+        
+        header("Access-Control-Allow-Origin: *");
+        
         bounce(ps[Math.floor(Math.random() * ps.length)]);
     }
 }).listen(config.loadbalancePort);
