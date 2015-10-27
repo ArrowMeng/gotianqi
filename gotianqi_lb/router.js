@@ -14,8 +14,7 @@ bouncy(function (req, bounce) {
     var ps = server.query(service);
     
     if (ps.length === 0) {
-        var res = bounce.respond();
-        res.end('service not available\n');
+        console.log('service not available\n');
     }
     else {
         console.log(ps.length);
