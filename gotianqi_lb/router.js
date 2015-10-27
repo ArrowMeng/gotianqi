@@ -11,6 +11,11 @@ bouncy(function (req, bounce) {
         stable : '0.0.x'
     }[domains[0]] || '0.0.x');
 
+    res.header("Access-Control-Allow-Origin", config.allowedCORSOrigins);
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Credentials", "true");
+    
     var ps = server.query(service);
     
     if (ps.length === 0) {
