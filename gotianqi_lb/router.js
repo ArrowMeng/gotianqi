@@ -20,6 +20,9 @@ bouncy(function (req, res, bounce) {
         console.log(ps.length);
         
         res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        res.setHeader("Access-Control-Allow-Credentials", "true");
         
         bounce(ps[Math.floor(Math.random() * ps.length)]);
     }
