@@ -14,10 +14,11 @@ bouncy(function (req, bounce) {
     var ps = server.query(service);
     
     if (ps.length === 0) {
-        console.log('service not available\n');
+        var res = bounce.respond();
+        res.end("service not available\n");
     }
     else {
         console.log(ps.length);
         bounce(ps[Math.floor(Math.random() * ps.length)]);
     }
-}).listen(8000);
+}).listen(config.loadbalancePort);
