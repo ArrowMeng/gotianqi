@@ -8,10 +8,14 @@ var debug = require('debug')('gotianqi_master');
 var http = require('http');
 var sessionService = require('../shared/session-service');
 
+var config = require('../config');
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.env.PORT || '5000');
+// var port = normalizePort(process.env.PORT || '5000');
+var seaport = require('seaport');
+var ports = seaport.connect('localhost', config.seaport);
+var port = ports.register('gotianqi@0.0.0');
 app.set('port', port);
 
 /**

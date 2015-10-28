@@ -1,6 +1,7 @@
 // Set your own domain in "allowedCORSOrigins" instead of "http://127.0.0.1:9000"
 
 module.exports = {
+	seaport: 8001,
     serverPort: 5000,
     sessionCookieKey: "connect.sid",
     sessionSecret: "SESIORsecret",
