@@ -58,8 +58,10 @@ app.use(logger('dev'));
 // setup routes
 var routes = require('./routes/index');
 var messages = require('./routes/messages');
+var auth = require('./routes/auth');
 app.use('/', routes);
 app.use('/messages', messages);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
