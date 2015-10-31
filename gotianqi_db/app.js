@@ -4,10 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-
 var qs = require('querystring');
-
 var async = require('async');
 var bcrypt = require('bcryptjs');
 var colors = require('colors');
@@ -18,18 +15,12 @@ var mongoose = require('mongoose');
 var request = require('request');
 
 var config = require('./config');
-
-// Database
-// var mongo = require('mongodb');
-// var monk = require('monk');
-// var db = monk('localhost:27017/gotianqi_db1');
-
 var auth = require('./routes/auth');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var messages = require('./routes/messages');
 
-
+// connect to mongo server
 mongoose.connect(config.MONGO_URI);
 mongoose.connection.on('error', function(err) {
     console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
@@ -41,12 +32,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-//app.use(function(req, res, next) {
-//  res.header("Access-Control-Allow-Origin", "*");
-//  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, accept, authorization");
-//  next();
-//});
-
+// cors configure
 var allowCrossDomain = function (req, res, next) {
     res.header("Access-Control-Allow-Origin", config.allowedCORSOrigins);
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
