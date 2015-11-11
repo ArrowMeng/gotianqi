@@ -45,7 +45,7 @@ router.post('/addMessage', function(req, res) {
       date: new Date()
     });
     
-    console.log(message);
+    console.log(req);
     
     message.save(function(err) {
       if (err) {
