@@ -24,7 +24,8 @@ var messageSchema = new Schema({
  */
 router.post('/messageList', function(req, res) {
     var Message = mongoose.model('Message', messageSchema);
-    Message.find({ userId: req.body.userId, toId: req.body.toId })
+    //Message.find({ userId: req.body.userId, toId: req.body.toId })
+    Message.find()
            .limit(100)
            .exec(function(err, messages) {
         res.json({messages: messages});
