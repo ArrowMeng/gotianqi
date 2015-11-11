@@ -44,8 +44,12 @@ router.post('/addMessage', function(req, res) {
       pic: req.body.pic,
       date: new Date()
     });
+    
+    console.log(message);
+    
     message.save(function(err) {
       if (err) {
+    	console.log(err);
         res.send({ error: err });
       }
       else {
