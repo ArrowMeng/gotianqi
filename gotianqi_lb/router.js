@@ -24,6 +24,9 @@ bouncy(function (req, res, bounce) {
         res.setHeader("Access-Control-Allow-Headers", "Content-Type");
         res.setHeader("Access-Control-Allow-Credentials", "true");
         
-        bounce(ps[Math.floor(Math.random() * ps.length)]);
+        var selectps = ps[Math.floor(Math.random() * ps.length)];
+        console.log(selectps);
+        
+        bounce(selectps);
     }
 }).listen(config.loadbalancePort);
