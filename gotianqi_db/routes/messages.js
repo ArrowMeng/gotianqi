@@ -38,14 +38,14 @@ router.post('/messageList', function(req, res) {
 router.post('/addMessage', function(req, res) {
     var Message = mongoose.model('Message', messageSchema);
     var message = new Message({
-      userId: req.body.msg.userId,
-      toId: req.body.msg.toId,
-      text: req.body.msg.text,
-      pic: req.body.msg.pic,
+      userId: req.body.msg[userId],
+      toId: req.body.msg[toId],
+      text: req.body.msg[text],
+      pic: req.body.msg[pic],
       date: new Date()
     });
     
-    console.log(message);
+    console.log(req);
     
     message.save(function(err) {
       if (err) {
