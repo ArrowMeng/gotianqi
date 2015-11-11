@@ -23,6 +23,7 @@ router.post('/messagelist', function(req, res) {
  */
 router.post('/addMessage', function(req, res) {
   var url = config.DB_SERVER + '/messages' + req.url;
+  console.log("req.body:", req.body);
   request.post({url: url, form: req.body}).pipe(res);
 });
 
@@ -30,5 +31,6 @@ module.exports = router;
 
 module.exports.addMessage = function(message) {
 	var url = config.DB_SERVER + '/messages/addMessage';
+	console.log(message);
 	request.post({url: url, form: message});
 };
