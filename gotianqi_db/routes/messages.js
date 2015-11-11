@@ -23,10 +23,10 @@ var messageSchema = new Schema({
  * GET notelist.
  */
 router.post('/messageList', function(req, res) {
-    var Message = mongoose.model('messages', messageSchema);
+    var Message = mongoose.model('Message', messageSchema);
     //Message.find({ userId: req.body.userId, toId: req.body.toId })
     Message.find()
-           .limit(100)
+           //.limit(100)
            .exec(function(err, messages) {
         res.json({messages: messages});
     });
@@ -36,7 +36,7 @@ router.post('/messageList', function(req, res) {
  * POST to adduser.
  */
 router.post('/addMessage', function(req, res) {
-    var Message = mongoose.model('messages', messageSchema);
+    var Message = mongoose.model('Message', messageSchema);
     var message = new Message({
       userId: req.body.userId,
       toId: req.body.toId,
