@@ -27,6 +27,8 @@ bouncy(function (req, res, bounce) {
         var selectps = ps[Math.floor(Math.random() * ps.length)];
         console.log(selectps);
         
+        res.setHeader("mhost", selectps.port);
+        
         bounce(selectps);
     }
 }).listen(config.loadbalancePort);
