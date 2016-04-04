@@ -26,14 +26,13 @@ router.post('/messageList', function(req, res) {
     var Message = mongoose.model('Message', messageSchema);
     //Message.find({ userId: req.body.userId, toId: req.body.toId })
     Message.find()
-           //.limit(100)
            .exec(function(err, messages) {
         res.json(messages);
     });
 });
 
 /*
- * POST to adduser.
+ * POST to addMessage.
  */
 router.post('/addMessage', function(req, res) {
     var Message = mongoose.model('Message', messageSchema);
@@ -44,8 +43,8 @@ router.post('/addMessage', function(req, res) {
       pic: req.body.pic,
       date: new Date()
     });
-    
-    console.log(req);
+
+console.log(req.body.userId + ',' + req.body.toId + ',' + req.body.text);
     
     message.save(function(err) {
       if (err) {

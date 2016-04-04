@@ -53,11 +53,23 @@ block content
         // /ADD USER
 
 
+        // ADD MESSAGE
+        h2 Add Message
+        #addMessage
+            fieldset
+                input#inputUserName(type='text', value='534b8fb2aa5e7afc1b23e69c' placeholder='userId')
+                input#inputToUserName(type='text' value='534b8e5aaa5e7afc1b23e69b', placeholder='toUserId')
+                input#inputText(type='text', placeholder='text')
+                br
+                button#btnAddMessage Add Message
+        // /ADD MESSAGE
+
         // NOTE LIST
         h2 Note List
         #noteList
             table
                 thead
+                    th ID
                     th UserName
                     th ToUserName
                     th Message

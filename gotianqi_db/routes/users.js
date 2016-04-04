@@ -47,7 +47,6 @@ router.post('/adduser', function(req, res) {
       gender: req.body.gender
     });
 
-    console.log('add user2');
 
     user.save(function(err) {
       if (err) {

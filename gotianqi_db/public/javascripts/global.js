@@ -42,12 +42,17 @@ function populateTable() {
    // Add User button click
    $('#btnAddUser').on('click', addUser); 
 
+   // Add Message button click
+   $('#btnAddMessage').on('click', addMessage); 
+
    var noteTableContent = '';
    // jQuery AJAX call for JSON
    $.post( '/messages/messageList', function( data ) {
         // For each item in our JSON, add a table row and cells to the content string
+        var index = 0;
         $.each(data, function(){
             noteTableContent += '<tr>';
+            noteTableContent += '<td>' + (++index) + '</td>';
             noteTableContent += '<td>' + this.userId + '</td>';
             noteTableContent += '<td>' + this.toId + '</td>';
             noteTableContent += '<td>' + this.text + '</td>';
@@ -180,7 +185,60 @@ function deleteUser(event) {
 
 };
 
-// Delete User
+// Add Message
+function addMessage(event) {
+    event.preventDefault();
+
+    // Super basic validation - increase errorCount variable if any fields are blank
+    var errorCount = 0;
+    $('#addMessage input').each(function(index, val) {
+        if($(this).val() === '') { errorCount++; }
+    });
+
+    // Check and make sure errorCount's still at zero
+    if(errorCount === 0) {
+
+        // If it is, compile all user info into one object
+        var newMessage = {
+            'userId': $('#addMessage fieldset input#inputUserName').val(),
+            'toId': $('#addMessage fieldset input#inputToUserName').val(),
+            'text': $('#addMessage fieldset input#inputText').val()
+        }
+
+        // Use AJAX to post the object to our adduser service
+        $.ajax({
+            type: 'POST',
+            data: newMessage,
+            url: '/messages/addMessage',
+            dataType: 'JSON'
+        }).done(function( response ) {
+
+            // Check for successful (blank) response
+            if (response.message) {
+
+                // Clear the form inputs
+                $('#addMessage fieldset input#inputText').val('');
+
+                // Update the table
+                populateTable();
+
+            }
+            else {
+
+                // If something goes wrong, alert the error message that our service returned
+                alert('Error: ' + response.error);
+
+            }
+        });
+    }
+    else {
+        // If errorCount is more than 0, error out
+        alert('Please fill in all fields');
+        return false;
+    }
+};
+
+// Delete Message
 function deleteMessage(event) {
 
     event.preventDefault();
