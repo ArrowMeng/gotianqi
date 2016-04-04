@@ -92,7 +92,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     next();
 // });
 
-//app.use(ensureAuthenticated);
+app.use(ensureAuthenticated);
 app.use('/', routes);
 app.use('/users', users);
 app.use('/messages', messages);
