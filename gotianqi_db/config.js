@@ -4,7 +4,7 @@ module.exports = {
   sessionSecret: "SESIORsecret",
   allowedCORSOrigins: "*",
 
-  TOKEN_SECRET: process.env.TOKEN_SECRET || 'Ua3hEIiagTjjDahmnwa8fDkn',
+  TOKEN_SECRET: process.env.TOKEN_SECRET || 'YWRtaW46cWlhbmdtZW4=',
   MONGO_URI: process.env.MONGO_URI || 'mongodb://localhost/gotianqi_db1',
 
   // OAuth 2.0

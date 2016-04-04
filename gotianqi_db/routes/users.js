@@ -1,22 +1,36 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var userSchema = new Schema({
+  userId: String,
+  userName: String,
+  fullName: String,
+  password: String,
+  age: String,
+  gender: String,
+  email: String,
+  pic: String,
+  readDate: Date
+});
 
 /*
  * GET userlist.
  */
 router.get('/userlist', function(req, res) {
-    var db = req.db;
-    var collection = db.get('userlist');
-    collection.find({},{},function(e,docs){
-        res.json(docs);
+    var User = mongoose.model('users', userSchema);
+    //User.find({ userId: req.body.userId, toId: req.body.toId })
+    User.find()
+           //.limit(100)
+           .exec(function(err, users) {
+        res.json(users);
     });
 });
 
 router.post('/userExists', function(req, res) {
-    var db = req.db;
-    var user = req.body.username;
-    var collection = db.get('userlist');
-    collection.find({username: user}, {}, function(e, docs) {
+    var User = mongoose.model('users', userSchema);
+    User.find({ userId: req.body.userId, toId: req.body.toId })
+             .exec(function(err, docs) {
         res.json(docs);
     });
 });
@@ -25,23 +39,36 @@ router.post('/userExists', function(req, res) {
  * POST to adduser.
  */
 router.post('/adduser', function(req, res) {
-    var db = req.db;
-    var collection = db.get('userlist');
-    collection.insert(req.body, function(err, result){
-        res.send(
-            (err === null) ? { msg: '' } : { msg: err }
-        );
+    var User = mongoose.model('users', userSchema);
+    var user = new User({
+      userName: req.body.userName,
+      email: req.body.email,
+      age: req.body.age,
+      gender: req.body.gender
     });
+
+    console.log('add user2');
+
+    user.save(function(err) {
+      if (err) {
+        console.log(err);
+        res.send({ error: err });
+      }
+      else {
+        res.send({ msg: '' });
+      }
+
+    }); 
+
 });
 
 /*
  * DELETE to deleteuser.
  */
 router.delete('/deleteuser/:id', function(req, res) {
-    var db = req.db;
-    var collection = db.get('userlist');
     var userToDelete = req.params.id;
-    collection.remove({ '_id' : userToDelete }, function(err) {
+    var User = mongoose.model('users', userSchema);
+    User.remove({'_id': userToDelete}, function(err) {
         res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
     });
 });

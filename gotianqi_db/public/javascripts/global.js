@@ -24,7 +24,7 @@ function populateTable() {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
+            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.userName + '">' + this.userName + '</a></td>';
             tableContent += '<td>' + this.email + '</td>';
             tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
@@ -44,17 +44,21 @@ function populateTable() {
 
    var noteTableContent = '';
    // jQuery AJAX call for JSON
-   $.getJSON( '/notes/notelist', function( data ) {
+   $.post( '/messages/messageList', function( data ) {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             noteTableContent += '<tr>';
-            noteTableContent += '<td>' + this.username + '</td>';
-            noteTableContent += '<td>' + this.message + '</td>';
-            noteTableContent += '<td>' + this.time + '</td>';
+            noteTableContent += '<td>' + this.userId + '</td>';
+            noteTableContent += '<td>' + this.toId + '</td>';
+            noteTableContent += '<td>' + this.text + '</td>';
+            noteTableContent += '<td>' + this.date + '</td>';
+            noteTableContent += '<td><a href="#" class="linkdeletemsg" rel="' + this._id + '">delete</a></td>';
             noteTableContent += '</tr>';
         });
 
         $('#noteList table tbody').html(noteTableContent);
+        // Delete Message link click
+        $('#noteList table tbody').on('click', 'td a.linkdeletemsg', deleteMessage);
     });
 };
 
@@ -69,13 +73,13 @@ function showUserInfo(event) {
     var thisUserName = $(this).attr('rel');
 
     // Get Index of object based on id value
-    var arrayPosition = userListData.map(function(arrayItem) { return arrayItem.username; }).indexOf(thisUserName);
+    var arrayPosition = userListData.map(function(arrayItem) { return arrayItem.userName; }).indexOf(thisUserName);
 
     // Get our User Object
     var thisUserObject = userListData[arrayPosition];
 
     //Populate Info Box
-    $('#userInfoName').text(thisUserObject.fullname);
+    $('#userInfoName').text(thisUserObject.userName);
     $('#userInfoAge').text(thisUserObject.age);
     $('#userInfoGender').text(thisUserObject.gender);
     $('#userInfoLocation').text(thisUserObject.location);
@@ -96,9 +100,9 @@ function addUser(event) {
 
         // If it is, compile all user info into one object
         var newUser = {
-            'username': $('#addUser fieldset input#inputUserName').val(),
+            'userName': $('#addUser fieldset input#inputUserName').val(),
             'email': $('#addUser fieldset input#inputUserEmail').val(),
-            'fullname': $('#addUser fieldset input#inputUserFullname').val(),
+            'fullName': $('#addUser fieldset input#inputUserFullname').val(),
             'age': $('#addUser fieldset input#inputUserAge').val(),
             'location': $('#addUser fieldset input#inputUserLocation').val(),
             'gender': $('#addUser fieldset input#inputUserGender').val()
@@ -152,6 +156,45 @@ function deleteUser(event) {
         $.ajax({
             type: 'DELETE',
             url: '/users/deleteuser/' + $(this).attr('rel')
+        }).done(function( response ) {
+
+            // Check for a successful (blank) response
+            if (response.msg === '') {
+            }
+            else {
+                alert('Error: ' + response.msg);
+            }
+
+            // Update the table
+            populateTable();
+
+        });
+
+    }
+    else {
+
+        // If they said no to the confirm, do nothing
+        return false;
+
+    }
+
+};
+
+// Delete User
+function deleteMessage(event) {
+
+    event.preventDefault();
+
+    // Pop up a confirmation dialog
+    var confirmation = confirm('Are you sure you want to delete this message?');
+
+    // Check and make sure the user confirmed
+    if (confirmation === true) {
+
+        // If they did, do our delete
+        $.ajax({
+            type: 'DELETE',
+            url: '/messages/deleteMessage/' + $(this).attr('rel')
         }).done(function( response ) {
 
             // Check for a successful (blank) response

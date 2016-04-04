@@ -28,7 +28,7 @@ router.post('/messageList', function(req, res) {
     Message.find()
            //.limit(100)
            .exec(function(err, messages) {
-        res.json({messages: messages});
+        res.json(messages);
     });
 });
 
@@ -58,5 +58,17 @@ router.post('/addMessage', function(req, res) {
       
     });
 });
+
+/*
+ * DELETE to deleteMessage.
+ */
+router.delete('/deleteMessage/:id', function(req, res) {
+    var msgToDelete = req.params.id;
+    var Message = mongoose.model('Message', messageSchema);
+    Message.remove({'_id': msgToDelete}, function(err) {
+        res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
+    });
+});
+
 
 module.exports = router;
