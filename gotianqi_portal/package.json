@@ -1,0 +1,21 @@
+{
+  "name": "gotianqi_portal",
+  "version": "1.0.0",
+  "description": "gui",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "portal"
+  ],
+  "author": "arrow",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "jade": "1.4.2",
+    "socket.io": "1.0.6",
+    "underscore": "1.6.0",
+    "body-parser": "1.4.3"
+  }
+}
